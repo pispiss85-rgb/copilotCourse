@@ -13,7 +13,10 @@ export async function connectToDatabase(uri?: string): Promise<typeof mongoose> 
   }
 
   try {
-    await mongoose.connect(connectionString);
+    await mongoose.connect(connectionString, {
+      serverSelectionTimeoutMS: 2000,
+      socketTimeoutMS: 2000,
+    });
     return mongoose;
   } catch (error) {
     console.warn('MongoDB connection unavailable; continuing with in-memory-safe behavior.', error);

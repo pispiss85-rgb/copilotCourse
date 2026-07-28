@@ -16,7 +16,8 @@ async function resolveCollection(
   try {
     await connectToDatabase();
     const data = await operation();
-    res.json(Array.isArray(data) ? data : []);
+    const resolvedData = Array.isArray(data) ? data : [];
+    res.json(resolvedData.length > 0 ? resolvedData : fallback);
   } catch (error) {
     console.warn('Falling back to static dataset.', error);
     res.json(fallback);

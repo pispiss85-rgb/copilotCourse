@@ -9,7 +9,10 @@ export async function connectToDatabase(uri) {
         return mongoose;
     }
     try {
-        await mongoose.connect(connectionString);
+        await mongoose.connect(connectionString, {
+            serverSelectionTimeoutMS: 2000,
+            socketTimeoutMS: 2000,
+        });
         return mongoose;
     }
     catch (error) {
