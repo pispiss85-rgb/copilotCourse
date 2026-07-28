@@ -6,9 +6,7 @@ export default function Leaderboard() {
 
   useEffect(() => {
     const loadLeaderboard = async () => {
-      const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim();
-      const apiBaseUrl = codespaceName ? `https://${codespaceName}-8000.app.github.dev` : 'http://localhost:8000';
-      const apiUrl = `${apiBaseUrl}/api/leaderboard/`;
+      const apiUrl = 'https://pispiss85-rgb-copilotcourse-8000.app.github.dev/api/leaderboard';
 
       try {
         const response = await fetch(apiUrl);

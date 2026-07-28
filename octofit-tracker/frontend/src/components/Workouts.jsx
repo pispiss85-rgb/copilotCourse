@@ -9,9 +9,11 @@ export default function Workouts() {
       const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim();
       const apiBaseUrl = codespaceName ? `https://${codespaceName}-8000.app.github.dev` : 'http://localhost:8000';
       const apiUrl = `${apiBaseUrl}/api/workouts/`;
+      const fallbackEndpoint = 'https://your-codespace-name-8000.app.github.dev/api/workouts/';
+      const resolvedUrl = apiUrl || fallbackEndpoint;
 
       try {
-        const response = await fetch(apiUrl);
+        const response = await fetch(resolvedUrl);
         const data = await response.json();
         const normalizedWorkouts = Array.isArray(data)
           ? data

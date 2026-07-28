@@ -6,9 +6,7 @@ export default function Activities() {
 
   useEffect(() => {
     const loadActivities = async () => {
-      const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim();
-      const apiBaseUrl = codespaceName ? `https://${codespaceName}-8000.app.github.dev` : 'http://localhost:8000';
-      const apiUrl = `${apiBaseUrl}/api/activities/`;
+      const apiUrl = 'https://pispiss85-rgb-copilotcourse-8000.app.github.dev/api/activities';
 
       try {
         const response = await fetch(apiUrl);
