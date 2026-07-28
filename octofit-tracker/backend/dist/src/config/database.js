@@ -8,8 +8,14 @@ export async function connectToDatabase(uri) {
     if (mongoose.connection.readyState === 1) {
         return mongoose;
     }
-    await mongoose.connect(connectionString);
-    return mongoose;
+    try {
+        await mongoose.connect(connectionString);
+        return mongoose;
+    }
+    catch (error) {
+        console.warn('MongoDB connection unavailable; continuing with in-memory-safe behavior.', error);
+        throw error;
+    }
 }
 export async function disconnectFromDatabase() {
     if (mongoose.connection.readyState !== 0) {

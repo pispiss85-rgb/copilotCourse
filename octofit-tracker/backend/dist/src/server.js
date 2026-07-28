@@ -75,9 +75,9 @@ app.get('/api/workouts/', async (_req, res) => {
     }
 });
 app.get('/api/config', (_req, res) => {
-    res.json({ baseUrl: getApiBaseUrl() });
+    res.json({ baseUrl: getApiBaseUrl(process.env.CODESPACE_NAME) });
 });
 app.listen(port, () => {
     console.log(`OctoFit Tracker API listening on port ${port}`);
-    console.log(`API base URL: ${getApiBaseUrl()}`);
+    console.log(`API base URL: ${getApiBaseUrl(process.env.CODESPACE_NAME)}`);
 });

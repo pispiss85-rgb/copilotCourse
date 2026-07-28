@@ -12,8 +12,13 @@ export async function connectToDatabase(uri?: string): Promise<typeof mongoose> 
     return mongoose;
   }
 
-  await mongoose.connect(connectionString);
-  return mongoose;
+  try {
+    await mongoose.connect(connectionString);
+    return mongoose;
+  } catch (error) {
+    console.warn('MongoDB connection unavailable; continuing with in-memory-safe behavior.', error);
+    throw error;
+  }
 }
 
 export async function disconnectFromDatabase(): Promise<void> {
