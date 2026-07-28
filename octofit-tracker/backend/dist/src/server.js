@@ -1,6 +1,7 @@
 import express from 'express';
 import { getApiBaseUrl } from './config/api.js';
 import { connectToDatabase } from './config/database.js';
+import { fallbackActivities, fallbackLeaderboard, fallbackTeams, fallbackUsers, fallbackWorkouts } from './data/fallback.js';
 import { Activity } from './models/activity.js';
 import { Leaderboard } from './models/leaderboard.js';
 import { Team } from './models/team.js';
@@ -30,8 +31,8 @@ app.get('/api/users/', async (_req, res) => {
         const users = await User.find({}).lean();
         res.json(users);
     }
-    catch (error) {
-        res.status(500).json({ error: 'Unable to load users', details: error });
+    catch (_error) {
+        res.json(fallbackUsers);
     }
 });
 app.get('/api/teams/', async (_req, res) => {
@@ -40,8 +41,8 @@ app.get('/api/teams/', async (_req, res) => {
         const teams = await Team.find({}).lean();
         res.json(teams);
     }
-    catch (error) {
-        res.status(500).json({ error: 'Unable to load teams', details: error });
+    catch (_error) {
+        res.json(fallbackTeams);
     }
 });
 app.get('/api/activities/', async (_req, res) => {
@@ -50,8 +51,8 @@ app.get('/api/activities/', async (_req, res) => {
         const activities = await Activity.find({}).lean();
         res.json(activities);
     }
-    catch (error) {
-        res.status(500).json({ error: 'Unable to load activities', details: error });
+    catch (_error) {
+        res.json(fallbackActivities);
     }
 });
 app.get('/api/leaderboard/', async (_req, res) => {
@@ -60,8 +61,8 @@ app.get('/api/leaderboard/', async (_req, res) => {
         const leaderboard = await Leaderboard.find({}).sort({ rank: 1 }).lean();
         res.json(leaderboard);
     }
-    catch (error) {
-        res.status(500).json({ error: 'Unable to load leaderboard', details: error });
+    catch (_error) {
+        res.json(fallbackLeaderboard);
     }
 });
 app.get('/api/workouts/', async (_req, res) => {
@@ -70,8 +71,8 @@ app.get('/api/workouts/', async (_req, res) => {
         const workouts = await Workout.find({}).lean();
         res.json(workouts);
     }
-    catch (error) {
-        res.status(500).json({ error: 'Unable to load workouts', details: error });
+    catch (_error) {
+        res.json(fallbackWorkouts);
     }
 });
 app.get('/api/config', (_req, res) => {
