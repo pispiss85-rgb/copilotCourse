@@ -1,4 +1,5 @@
 import express from 'express';
+import { getApiBaseUrl } from './config/api.js';
 import { connectToDatabase } from './config/database.js';
 import { fallbackActivities, fallbackLeaderboard, fallbackTeams, fallbackUsers, fallbackWorkouts } from './data/fallback.js';
 import { Activity } from './models/activity.js';
@@ -8,10 +9,7 @@ import { User } from './models/user.js';
 import { Workout } from './models/workout.js';
 const app = express();
 const port = Number(process.env.PORT ?? 8000);
-const codespaceName = process.env.CODESPACE_NAME;
-const baseUrl = codespaceName
-    ? `https://${codespaceName}-8000.app.github.dev`
-    : 'http://localhost:8000';
+const baseUrl = getApiBaseUrl(process.env.CODESPACE_NAME, 8000);
 app.use(express.json());
 app.get('/api/health', async (_req, res) => {
     try {

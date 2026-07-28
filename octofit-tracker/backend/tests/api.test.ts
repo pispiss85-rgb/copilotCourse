@@ -8,6 +8,15 @@ test('getApiBaseUrl uses a Codespaces URL when CODESPACE_NAME is set', () => {
 });
 
 test('getApiBaseUrl falls back to localhost for local development', () => {
-  const url = getApiBaseUrl(undefined, 8000);
-  assert.equal(url, 'http://localhost:8000');
+  const previous = process.env.CODESPACE_NAME;
+  delete process.env.CODESPACE_NAME;
+
+  try {
+    const url = getApiBaseUrl(undefined, 8000);
+    assert.equal(url, 'http://localhost:8000');
+  } finally {
+    if (previous !== undefined) {
+      process.env.CODESPACE_NAME = previous;
+    }
+  }
 });

@@ -1,4 +1,4 @@
-export function getApiBaseUrl(codespaceName = process.env.CODESPACE_NAME, port = 8000): string {
+export function getApiBaseUrl(codespaceName: string | undefined = process.env.CODESPACE_NAME, port = 8000): string {
   const normalizedName = typeof codespaceName === 'string' ? codespaceName.trim() : '';
 
   if (normalizedName && !normalizedName.includes('localhost')) {
