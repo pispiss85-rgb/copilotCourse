@@ -8,9 +8,9 @@ import { Team } from '../models/team.js';
 import { User } from '../models/user.js';
 import { Workout } from '../models/workout.js';
 
-async function resolveCollection<T>(
-  operation: () => Promise<T[] | null | undefined>,
-  fallback: T[],
+async function resolveCollection(
+  operation: () => Promise<unknown[] | null | undefined>,
+  fallback: unknown[],
   res: Response,
 ): Promise<void> {
   try {
