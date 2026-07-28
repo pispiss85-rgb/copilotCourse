@@ -1,0 +1,22 @@
+{
+  "name": "octofit-tracker-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/src/server.js",
+    "seed": "node --import tsx src/scripts/seed.ts",
+    "test": "node --import tsx --test tests/**/*.test.ts"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^8.11.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.10.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0"
+  }
+}
