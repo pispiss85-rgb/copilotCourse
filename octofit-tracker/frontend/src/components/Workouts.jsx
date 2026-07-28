@@ -10,7 +10,14 @@ export default function Workouts() {
       try {
         const response = await fetch(getApiUrl('workouts'));
         const data = await response.json();
-        setWorkouts(Array.isArray(data) ? data : data.items ?? []);
+        const normalizedWorkouts = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.items)
+            ? data.items
+            : Array.isArray(data?.results)
+              ? data.results
+              : [];
+        setWorkouts(normalizedWorkouts);
       } catch {
         setWorkouts([]);
       } finally {

@@ -10,7 +10,14 @@ export default function Teams() {
       try {
         const response = await fetch(getApiUrl('teams'));
         const data = await response.json();
-        setTeams(Array.isArray(data) ? data : data.items ?? []);
+        const normalizedTeams = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.items)
+            ? data.items
+            : Array.isArray(data?.results)
+              ? data.results
+              : [];
+        setTeams(normalizedTeams);
       } catch {
         setTeams([]);
       } finally {

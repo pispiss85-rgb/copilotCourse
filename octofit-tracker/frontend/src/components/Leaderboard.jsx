@@ -10,7 +10,14 @@ export default function Leaderboard() {
       try {
         const response = await fetch(getApiUrl('leaderboard'));
         const data = await response.json();
-        setEntries(Array.isArray(data) ? data : data.items ?? []);
+        const normalizedEntries = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.items)
+            ? data.items
+            : Array.isArray(data?.results)
+              ? data.results
+              : [];
+        setEntries(normalizedEntries);
       } catch {
         setEntries([]);
       } finally {

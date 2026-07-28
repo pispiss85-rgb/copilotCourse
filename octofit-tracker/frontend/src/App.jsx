@@ -7,12 +7,19 @@ import Workouts from './components/Workouts';
 import './App.css';
 
 function Home() {
+  const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim();
+
   return (
     <section className="hero-card">
       <p className="eyebrow">OctoFit Tracker</p>
       <h1>Fitness tracking for the modern school community.</h1>
       <p className="description">
         Explore users, activities, teams, workouts, and the leaderboard from a single dashboard.
+      </p>
+      <p className="description">
+        {codespaceName
+          ? `API requests target the Codespaces endpoint for ${codespaceName}.`
+          : 'Define VITE_CODESPACE_NAME in .env.local to target your Codespaces API URL.'}
       </p>
     </section>
   );

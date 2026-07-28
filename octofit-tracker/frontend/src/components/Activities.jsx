@@ -10,7 +10,14 @@ export default function Activities() {
       try {
         const response = await fetch(getApiUrl('activities'));
         const data = await response.json();
-        setActivities(Array.isArray(data) ? data : data.items ?? []);
+        const normalizedActivities = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.items)
+            ? data.items
+            : Array.isArray(data?.results)
+              ? data.results
+              : [];
+        setActivities(normalizedActivities);
       } catch {
         setActivities([]);
       } finally {

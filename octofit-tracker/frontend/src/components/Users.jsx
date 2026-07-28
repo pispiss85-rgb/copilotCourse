@@ -10,7 +10,14 @@ export default function Users() {
       try {
         const response = await fetch(getApiUrl('users'));
         const data = await response.json();
-        setUsers(Array.isArray(data) ? data : data.items ?? []);
+        const normalizedUsers = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.items)
+            ? data.items
+            : Array.isArray(data?.results)
+              ? data.results
+              : [];
+        setUsers(normalizedUsers);
       } catch {
         setUsers([]);
       } finally {
