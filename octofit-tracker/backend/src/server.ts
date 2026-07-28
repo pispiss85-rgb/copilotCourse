@@ -10,6 +10,10 @@ import { Workout } from './models/workout.js';
 
 const app = express();
 const port = Number(process.env.PORT ?? 8000);
+const codespaceName = process.env.CODESPACE_NAME;
+const baseUrl = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev`
+  : 'http://localhost:8000';
 
 app.use(express.json());
 
@@ -80,10 +84,10 @@ app.get('/api/workouts/', async (_req, res) => {
 });
 
 app.get('/api/config', (_req, res) => {
-  res.json({ baseUrl: getApiBaseUrl(process.env.CODESPACE_NAME) });
+  res.json({ baseUrl });
 });
 
 app.listen(port, () => {
   console.log(`OctoFit Tracker API listening on port ${port}`);
-  console.log(`API base URL: ${getApiBaseUrl(process.env.CODESPACE_NAME)}`);
+  console.log(`API base URL: ${baseUrl}`);
 });
